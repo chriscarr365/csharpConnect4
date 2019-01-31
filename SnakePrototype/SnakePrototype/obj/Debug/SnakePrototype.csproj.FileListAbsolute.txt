@@ -1,0 +1,10 @@
+c:\users\hughhegarty\source\repos\SnakePrototype\SnakePrototype\bin\Debug\SnakePrototype.exe.config
+c:\users\hughhegarty\source\repos\SnakePrototype\SnakePrototype\bin\Debug\SnakePrototype.exe
+c:\users\hughhegarty\source\repos\SnakePrototype\SnakePrototype\bin\Debug\SnakePrototype.pdb
+c:\users\hughhegarty\source\repos\SnakePrototype\SnakePrototype\obj\Debug\SnakePrototype.csprojAssemblyReference.cache
+c:\users\hughhegarty\source\repos\SnakePrototype\SnakePrototype\obj\Debug\SnakePrototype.Form1.resources
+c:\users\hughhegarty\source\repos\SnakePrototype\SnakePrototype\obj\Debug\SnakePrototype.Properties.Resources.resources
+c:\users\hughhegarty\source\repos\SnakePrototype\SnakePrototype\obj\Debug\SnakePrototype.csproj.GenerateResource.cache
+c:\users\hughhegarty\source\repos\SnakePrototype\SnakePrototype\obj\Debug\SnakePrototype.csproj.CoreCompileInputs.cache
+c:\users\hughhegarty\source\repos\SnakePrototype\SnakePrototype\obj\Debug\SnakePrototype.exe
+c:\users\hughhegarty\source\repos\SnakePrototype\SnakePrototype\obj\Debug\SnakePrototype.pdb
