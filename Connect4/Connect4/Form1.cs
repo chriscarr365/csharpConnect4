@@ -62,50 +62,142 @@ namespace Connect4
             string[] coordinates = clickedButton.Name.Split(new Char[] { ' ' });
             int x = Convert.ToInt32(coordinates[0]);
             int y = Convert.ToInt32(coordinates[1]);
-
+            int yDropped = -1;
             for (int i = 5; i>=0; i--)
             {
                 if (btn[x, i].BackColor == Color.White)
                 {
                     btn[x, i].BackColor = playerColor;
+
+                    yDropped = i;
                     break;
                 }
                 else if (i == 0)
                 {
+                    turnCount--;
                     MessageBox.Show("All of this column is full, try a different one");
                 }
             }
 
             //add out of boubds exception handling
-            if (btn[x, y+1].BackColor == Color.Red)
+
+            try
             {
-                for (int i = 0; i < 4; i++)
+            //checks if there is 4 in a row down from where the object was placed
+            //WORKING
+                if (btn[x, yDropped + 1].BackColor == playerColor)
                 {
-                    if (btn[x, y + i].BackColor != Color.Red)
-                    {
-                        break;
-                    }
-                    else if (i == 3)
-                    {
-                        MessageBox.Show("4 in a row");
+                    for (int i = 0; i < 4; i++)
+                {
+                        if (btn[x, yDropped + i].BackColor != playerColor)
+                        {
+                            break;
+                        }
+                        else if (i == 3)
+                        {
+                            MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
+                        }
                     }
                 }
             }
-            //if (btn[x+1, y+1].BackColor == Color.Red)
-            //{
+            catch(IndexOutOfRangeException)
+            {
 
-            //}
-            //if (btn[x+1, y].BackColor == Color.Red)
-            //{
-
-            //}
-
-            //if (btn[x+1, y-1].BackColor == Color.Red)
-            //{
-
-            //}
+            }
 
 
+            try
+            {
+                //checks if there is 4 in a row down and to the right from where the object was placed
+                if (btn[x + 1, yDropped + 1].BackColor == playerColor)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (btn[x + i, yDropped + i].BackColor != playerColor)
+                        {
+                            break;
+                        }
+                        else if (i == 3)
+                        {
+                            MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
+                        }
+                    }
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+
+            }
+
+            try
+            {
+                //checks if there is 4 in a row to the right of where the object was placed
+                if (btn[x + 1, yDropped].BackColor == playerColor)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (btn[x + i, yDropped].BackColor != playerColor)
+                        {
+                            break;
+                        }
+                        else if (i == 3)
+                        {
+                            MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
+                        }
+                    }
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+
+            }
+
+            try
+            {
+                //checks if there is 4 in a row down and to the left of where the object was placed
+                //WORKING INCONSISTENTLY
+                if (btn[x - 1, yDropped + 1].BackColor == playerColor)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (btn[x - i, yDropped + i].BackColor != playerColor)
+                        {
+                            break;
+                        }
+                        else if (i == 3)
+                        {
+                            MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
+                        }
+                    }
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+
+            }
+
+            try
+            {
+                //checks if there is 4 in a row to the left of where the object was placed
+                if (btn[x - 1, yDropped].BackColor == playerColor)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (btn[x - i, yDropped].BackColor != playerColor)
+                        {
+                            break;
+                        }
+                        else if (i == 3)
+                        {
+                            MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
+                        }
+                    }
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+
+            }
 
 
 
@@ -113,7 +205,7 @@ namespace Connect4
 
             
            
-            //Possibly unnecessary
+            //likely unnecessary
             //if (btn[x, y-1].BackColor == Color.Red)
             //{
 
