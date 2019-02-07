@@ -15,6 +15,7 @@ namespace Connect4
     {
         RoundButton[,] btn = new RoundButton[7, 6];
         Button background = new Button();
+        Timer turnTime = new Timer();
 
         public connect4Board()
         {
@@ -27,20 +28,22 @@ namespace Connect4
                 for (int y = 0; y<btn.GetLength(1); y++)
                 {
                     btn[x, y] = new RoundButton();
-                    btn[x, y].SetBounds(10 + 55 * x, 10 + 55 * y, 45, 45);
+                    btn[x, y].SetBounds(10 + 55 * x, 40 + 55 * y, 45, 45);
                     btn[x, y].BackColor = Color.White;
                     btn[x, y].FlatStyle = FlatStyle.Flat;
                     btn[x, y].FlatAppearance.BorderSize = 0;
                     btn[x, y].Click += new EventHandler(this.btnEvent_Click);
                     btn[x, y].Name = x + " " + y;
-     //               btn[x, y].MouseEnter += new EventHandler(this.btnEvent_MouseEnter);
-     //               btn[x, y].MouseLeave += new EventHandler(this.btnEvent_MouseLeave);
+                    //btn[x, y].MouseEnter += new EventHandler(this.btnEvent_MouseEnter);
+                    //btn[x, y].MouseLeave += new EventHandler(this.btnEvent_MouseLeave);
                     Controls.Add(btn[x, y]);
                 }
             }
             background.BackColor = Color.DodgerBlue;
-            background.SetBounds(0, 0, 400, 350);
+            background.SetBounds(0, 30, 400, 350);
             Controls.Add(background);
+
+            turnTime.Interval = 1000;
             
         }
 
@@ -49,7 +52,6 @@ namespace Connect4
         
         
        
-
         void btnEvent_Click(object sender, EventArgs e)
         {
            if (turnCount%2 == 0)
@@ -66,11 +68,14 @@ namespace Connect4
             int x = Convert.ToInt32(coordinates[0]);
             int y = Convert.ToInt32(coordinates[1]);
             int yDropped = -1;
+
+            
             for (int i = 5; i>=0; i--)
             {
+                
                 if (btn[x, i].BackColor == Color.White)
                 {
-                    btn[x, i].BackColor = playerColor;
+                 //   btn[x, i].BackColor = playerColor;
 
                     yDropped = i;
                     break;
@@ -80,6 +85,40 @@ namespace Connect4
                     turnCount--;
                     MessageBox.Show("All of this column is full, try a different one");
                 }
+            }
+
+            for (int i = 0; i <= yDropped; i++)
+            {
+  //              tmrChipFall.Start();
+                btn[x, i].BackColor = playerColor;
+                
+  //              btn[x, i].BackColor = Color.White;
+                 ////////////////////////////////////////////////lines taken from https://social.msdn.microsoft.com/Forums/windows/en-US/b9a82989-2cd3-46d4-854f-f6ddfd8df294/how-to-sleepdelay-within-a-quotforquot-loop-in-c-?forum=winforms
+                Application.DoEvents();
+                System.Threading.Thread.Sleep(50);
+                /////////////////////////////////////////////////
+                btn[x, i].BackColor = Color.White;
+                if (i == yDropped)
+                {
+                    btn[x, i].BackColor = playerColor;
+                    break;
+                }
+
+
+
+                //if (btn[x, i].BackColor == Color.White)
+                //{
+
+
+                //    yDropped = i;
+                //    break;
+                //}
+                //else if (i == 0)
+                //{
+                //    turnCount--;
+                //    MessageBox.Show("All of this column is full, try a different one");
+                //}
+               
             }
 
             try
@@ -117,6 +156,13 @@ namespace Connect4
                         {
                             break;
                         }
+                        else if (i == 2)
+                        {
+                            if (btn[x - 1, yDropped - 1].BackColor == playerColor)
+                            {
+                                MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
+                            }
+                        }
                         else if (i == 3)
                         {
                             MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
@@ -140,28 +186,12 @@ namespace Connect4
                         {
                             break;
                         }
-                        else if (i == 3)
+                        else if (i == 2)
                         {
-                            MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
-                        }
-                    }
-                }
-            }
-            catch (IndexOutOfRangeException)
-            {
-
-            }
-
-            try
-            {
-                //checks if there is 4 in a row down and to the left of where the object was placed
-                if (btn[x - 1, yDropped + 1].BackColor == playerColor)
-                {
-                    for (int i = 0; i < 4; i++)
-                    {
-                        if (btn[x - i, yDropped + i].BackColor != playerColor)
-                        {
-                            break;
+                            if (btn[x - 1, yDropped].BackColor == playerColor)
+                            {
+                                MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
+                            }
                         }
                         else if (i == 3)
                         {
@@ -186,6 +216,103 @@ namespace Connect4
                         {
                             break;
                         }
+                        else if (i == 2)
+                        {
+                            if (btn[x + 1, yDropped].BackColor == playerColor)
+                            {
+                                MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
+                            }
+                        }
+                        else if (i == 3)
+                        {
+                            MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
+                        }
+                    }
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+
+            }
+
+            try
+            {
+                //checks if there is 4 in a row down and to the left of where the object was placed
+                if (btn[x - 1, yDropped + 1].BackColor == playerColor)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (btn[x - i, yDropped + i].BackColor != playerColor)
+                        {
+                            break;
+                        }
+                        else if (i == 2)
+                        {
+                            if (btn[x + 1, yDropped - 1].BackColor == playerColor)
+                            {
+                                MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
+                            }
+                        }
+                        else if (i == 3)
+                        {
+                            MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
+                        }
+                    }
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+
+            }
+
+            try
+            {
+                //checks if there is 4 in a row up and to the left of where the object was placed
+                if (btn[x - 1, yDropped-1].BackColor == playerColor)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (btn[x - i, yDropped-i].BackColor != playerColor)
+                        {
+                            break;
+                        }
+                        else if (i == 2)
+                        {
+                            if (btn[x + 1, yDropped + 1].BackColor == playerColor)
+                            {
+                                MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
+                            }
+                        }
+                        else if (i == 3)
+                        {
+                            MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
+                        }
+                    }
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+
+            }
+
+            try
+            {
+                //checks if there is 4 in a row up and to the right of where the object was placed
+                if (btn[x + 1, yDropped - 1].BackColor == playerColor)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (btn[x + i, yDropped - i].BackColor != playerColor)
+                        {
+                            break;
+                        }
+                        else if (i == 2)
+                        {
+                            if (btn[x - 1, yDropped + 1].BackColor == playerColor)
+                            {
+                                MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
+                            }
+                        }
                         else if (i == 3)
                         {
                             MessageBox.Show("4 in a row, " + playerColor.Name + " wins");
@@ -199,23 +326,76 @@ namespace Connect4
             }
 
 
-
             turnCount++;           
         }
 
         //void btnEvent_MouseEnter(object sender, EventArgs e)
         //{
-        //    Console.WriteLine(((Button)sender).Text);
+        //    if (turnCount % 2 == 0)
+        //    {
+        //        playerColor = Color.Blue;
+        //    }
+        //    else
+        //    {
+        //        playerColor = Color.Red;
+        //    }
+        //    Button clickedButton = (Button)sender;
+
+        //    string[] coordinates = clickedButton.Name.Split(new Char[] { ' ' });
+        //    int x = Convert.ToInt32(coordinates[0]);
+        //    int y = Convert.ToInt32(coordinates[1]);
+        //    int yDropped = -1;
+        //    for (int i = 5; i >= 0; i--)
+        //    {
+        //        if (btn[x, i].BackColor == Color.White)
+        //        {
+        //            btn[x, i].BackColor = playerColor;
+
+        //            yDropped = i;
+        //            break;
+        //        }
+               
+        //    }
         //}
 
         //void btnEvent_MouseLeave(object sender, EventArgs e)
         //{
-        //    Console.WriteLine(((Button)sender).Text);
+        //    if (turnCount % 2 == 0)
+        //    {
+        //        playerColor = Color.Blue;
+        //    }
+        //    else
+        //    {
+        //        playerColor = Color.Red;
+        //    }
+        //    Button clickedButton = (Button)sender;
+
+        //    string[] coordinates = clickedButton.Name.Split(new Char[] { ' ' });
+        //    int x = Convert.ToInt32(coordinates[0]);
+        //    int y = Convert.ToInt32(coordinates[1]);
+        //    int yDropped = -1;
+        //    for (int i = 5; i >= 0; i--)
+        //    {
+        //        if (btn[x, i].BackColor != Color.White)
+        //        {
+        //            btn[x, i].BackColor = Color.White;
+
+        //            yDropped = i;
+        //            break;
+        //        }
+                
+
+        //    }
         //}
 
         private void connect4Board_Load(object sender, EventArgs e)
         {
             
+        }
+
+        private void tmrChipFall_Tick(object sender, EventArgs e)
+        {
+
         }
     }
 
