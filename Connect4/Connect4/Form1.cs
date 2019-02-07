@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing.Drawing2D;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace Connect4
 {
     public partial class connect4Board : Form
     {
-        Button[,] btn = new Button[7, 6];
+        RoundButton[,] btn = new RoundButton[7, 6];
         Button background = new Button();
 
         public connect4Board()
@@ -25,9 +26,11 @@ namespace Connect4
             {
                 for (int y = 0; y<btn.GetLength(1); y++)
                 {
-                    btn[x, y] = new Button();
+                    btn[x, y] = new RoundButton();
                     btn[x, y].SetBounds(10 + 55 * x, 10 + 55 * y, 45, 45);
                     btn[x, y].BackColor = Color.White;
+                    btn[x, y].FlatStyle = FlatStyle.Flat;
+                    btn[x, y].FlatAppearance.BorderSize = 0;
                     btn[x, y].Click += new EventHandler(this.btnEvent_Click);
                     btn[x, y].Name = x + " " + y;
      //               btn[x, y].MouseEnter += new EventHandler(this.btnEvent_MouseEnter);
@@ -35,7 +38,7 @@ namespace Connect4
                     Controls.Add(btn[x, y]);
                 }
             }
-            background.BackColor = Color.Blue;
+            background.BackColor = Color.DodgerBlue;
             background.SetBounds(0, 0, 400, 350);
             Controls.Add(background);
             
@@ -79,12 +82,9 @@ namespace Connect4
                 }
             }
 
-            //add out of boubds exception handling
-
             try
             {
-            //checks if there is 4 in a row down from where the object was placed
-            //WORKING
+                //checks if there is 4 in a row down from where the object was placed
                 if (btn[x, yDropped + 1].BackColor == playerColor)
                 {
                     for (int i = 0; i < 4; i++)
@@ -155,7 +155,6 @@ namespace Connect4
             try
             {
                 //checks if there is 4 in a row down and to the left of where the object was placed
-                //WORKING INCONSISTENTLY
                 if (btn[x - 1, yDropped + 1].BackColor == playerColor)
                 {
                     for (int i = 0; i < 4; i++)
@@ -201,28 +200,7 @@ namespace Connect4
 
 
 
-            turnCount++;
-
-            
-           
-            //likely unnecessary
-            //if (btn[x, y-1].BackColor == Color.Red)
-            //{
-
-            //}
-            //if (btn[x-1, y-1].BackColor == Color.Red)
-            //{
-
-            //}
-            //if (btn[x-1, y].BackColor == Color.Red)
-            //{
-
-            //}
-            //if (btn[x-1, y+1].BackColor == Color.Red)
-            //{
-
-            //}
-            
+            turnCount++;           
         }
 
         //void btnEvent_MouseEnter(object sender, EventArgs e)
@@ -238,6 +216,17 @@ namespace Connect4
         private void connect4Board_Load(object sender, EventArgs e)
         {
             
+        }
+    }
+
+    public class RoundButton : Button
+    {
+        protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
+        {
+            GraphicsPath grPath = new GraphicsPath();
+            grPath.AddEllipse(0, 0, ClientSize.Width, ClientSize.Height);
+            this.Region = new System.Drawing.Region(grPath);
+            base.OnPaint(e);
         }
     }
 }
