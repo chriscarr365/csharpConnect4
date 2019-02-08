@@ -26,10 +26,12 @@ namespace Connect4
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Application.Run(new connect4Board());
+
+
             this.Hide();
-            connect4Board sp = new connect4Board();
-            sp.ShowDialog();
+            aiboard board = new aiboard();
+            board.ShowDialog();
+            //MessageBox.Show("Board 2");
 
 
 
@@ -37,7 +39,10 @@ namespace Connect4
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Application.Run(new connect4Board());
+            this.Hide();
+            connect4Board board = new connect4Board();
+            board.ShowDialog();
+
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)

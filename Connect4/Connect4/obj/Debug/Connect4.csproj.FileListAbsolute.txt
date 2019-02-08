@@ -19,3 +19,4 @@ C:\Users\chris\Source\Repos\chriscarr365\csharpConnect4\Connect4\Connect4\obj\De
 C:\Users\chris\Source\Repos\chriscarr365\csharpConnect4\Connect4\Connect4\obj\Debug\Connect4.exe
 C:\Users\chris\Source\Repos\chriscarr365\csharpConnect4\Connect4\Connect4\obj\Debug\Connect4.pdb
 C:\Users\chris\source\repos\chriscarr365\csharpConnect4\Connect4\Connect4\obj\Debug\Connect4.MenuForm.resources
+C:\Users\chris\Source\Repos\chriscarr365\csharpConnect4\Connect4\Connect4\obj\Debug\Connect4.aiboard.resources
