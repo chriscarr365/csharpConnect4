@@ -16,13 +16,11 @@ namespace Connect4
         RoundButton[,] btn = new RoundButton[7, 6];
         Button background = new Button();
         
-        
+        int turnCount = 1;
 
         public connect4Board()
         {
             InitializeComponent();
-
-            
 
             for (int x = 0; x<btn.GetLength(0); x++)
             {
@@ -40,17 +38,13 @@ namespace Connect4
             }
             background.BackColor = Color.DodgerBlue;
             background.SetBounds(0, 30, 400, 350);
-            Controls.Add(background);
-
-            
-            
+            Controls.Add(background);        
         }
-
-        int turnCount = 1;
+      
         Color playerColor = new Color();
-        
-        
-       
+        int player1Score = 0;
+        int player2Score = 0;
+    
         void btnEvent_Click(object sender, EventArgs e)
         {
            if (turnCount%2 == 0)
@@ -67,15 +61,11 @@ namespace Connect4
             int x = Convert.ToInt32(coordinates[0]);
             int y = Convert.ToInt32(coordinates[1]);
             int yDropped = -1;
-
-            
+ 
             for (int i = 5; i>=0; i--)
-            {
-                
+            {               
                 if (btn[x, i].BackColor == Color.White)
                 {
-                 //   btn[x, i].BackColor = playerColor;
-
                     yDropped = i;
                     break;
                 }
@@ -93,10 +83,7 @@ namespace Connect4
             
             for (int i = 0; i <= yDropped; i++)
             {
-  //              tmrChipFall.Start();
                 btn[x, i].BackColor = playerColor;
-                
-  //              btn[x, i].BackColor = Color.White;
                  ////////////////////////////////////////////////lines taken from https://social.msdn.microsoft.com/Forums/windows/en-US/b9a82989-2cd3-46d4-854f-f6ddfd8df294/how-to-sleepdelay-within-a-quotforquot-loop-in-c-?forum=winforms
                 Application.DoEvents();
                 System.Threading.Thread.Sleep(50);
@@ -108,7 +95,6 @@ namespace Connect4
                     btn[x, i].BackColor = playerColor;
                     break;
                 }
-               
             }
 
             try
@@ -117,38 +103,21 @@ namespace Connect4
                 if (btn[x, yDropped + 1].BackColor == playerColor)
                 {
                     for (int i = 0; i < 4; i++)
-                {
+                    {
                         if (btn[x, yDropped + i].BackColor != playerColor)
                         {
                             break;
                         }
                         else if (i == 3)
                         {
-                            DialogResult result = MessageBox.Show("4 in a row, " + playerColor.Name + " wins. Restart?", "congratulations",  MessageBoxButtons.YesNo);
-                            if (result == DialogResult.Yes)
-                            {
-                                for (int j = 0; j < btn.GetLength(0); j++)
-                                {
-                                    for (int k = 0; k < btn.GetLength(1); k++)
-                                    {
-                                        btn[j, k].BackColor = Color.White;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                Application.Exit();
-                            }
-
+                            winMessage();                            
                         }
                     }
                 }
             }
             catch(IndexOutOfRangeException)
             {
-
             }
-
 
             try
             {
@@ -165,47 +134,18 @@ namespace Connect4
                         {
                             if (btn[x - 1, yDropped - 1].BackColor == playerColor)
                             {
-                                DialogResult result = MessageBox.Show("4 in a row, " + playerColor.Name + " wins. Restart?", "congratulations", MessageBoxButtons.YesNo);
-                                if (result == DialogResult.Yes)
-                                {
-                                    for (int j = 0; j < btn.GetLength(0); j++)
-                                    {
-                                        for (int k = 0; k < btn.GetLength(1); k++)
-                                        {
-                                            btn[j, k].BackColor = Color.White;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    Application.Exit();
-                                }
+                                winMessage();
                             }
                         }
                         else if (i == 3)
                         {
-                            DialogResult result = MessageBox.Show("4 in a row, " + playerColor.Name + " wins. Restart?", "congratulations", MessageBoxButtons.YesNo);
-                            if (result == DialogResult.Yes)
-                            {
-                                for (int j = 0; j < btn.GetLength(0); j++)
-                                {
-                                    for (int k = 0; k < btn.GetLength(1); k++)
-                                    {
-                                        btn[j, k].BackColor = Color.White;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                Application.Exit();
-                            }
+                            winMessage();
                         }
                     }
                 }
             }
             catch (IndexOutOfRangeException)
             {
-
             }
 
             try
@@ -223,47 +163,18 @@ namespace Connect4
                         {
                             if (btn[x - 1, yDropped].BackColor == playerColor)
                             {
-                                DialogResult result = MessageBox.Show("4 in a row, " + playerColor.Name + " wins. Restart?", "congratulations", MessageBoxButtons.YesNo);
-                                if (result == DialogResult.Yes)
-                                {
-                                    for (int j = 0; j < btn.GetLength(0); j++)
-                                    {
-                                        for (int k = 0; k < btn.GetLength(1); k++)
-                                        {
-                                            btn[j, k].BackColor = Color.White;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    Application.Exit();
-                                }
+                                winMessage();
                             }
                         }
                         else if (i == 3)
                         {
-                            DialogResult result = MessageBox.Show("4 in a row, " + playerColor.Name + " wins. Restart?", "congratulations", MessageBoxButtons.YesNo);
-                            if (result == DialogResult.Yes)
-                            {
-                                for (int j = 0; j < btn.GetLength(0); j++)
-                                {
-                                    for (int k = 0; k < btn.GetLength(1); k++)
-                                    {
-                                        btn[j, k].BackColor = Color.White;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                Application.Exit();
-                            }
+                            winMessage();
                         }
                     }
                 }
             }
             catch (IndexOutOfRangeException)
             {
-
             }
 
             try
@@ -281,47 +192,18 @@ namespace Connect4
                         {
                             if (btn[x + 1, yDropped].BackColor == playerColor)
                             {
-                                DialogResult result = MessageBox.Show("4 in a row, " + playerColor.Name + " wins. Restart?", "congratulations", MessageBoxButtons.YesNo);
-                                if (result == DialogResult.Yes)
-                                {
-                                    for (int j = 0; j < btn.GetLength(0); j++)
-                                    {
-                                        for (int k = 0; k < btn.GetLength(1); k++)
-                                        {
-                                            btn[j, k].BackColor = Color.White;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    Application.Exit();
-                                }
+                                winMessage();
                             }
                         }
                         else if (i == 3)
                         {
-                            DialogResult result = MessageBox.Show("4 in a row, " + playerColor.Name + " wins. Restart?", "congratulations", MessageBoxButtons.YesNo);
-                            if (result == DialogResult.Yes)
-                            {
-                                for (int j = 0; j < btn.GetLength(0); j++)
-                                {
-                                    for (int k = 0; k < btn.GetLength(1); k++)
-                                    {
-                                        btn[j, k].BackColor = Color.White;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                Application.Exit();
-                            }
+                            winMessage();
                         }
                     }
                 }
             }
             catch (IndexOutOfRangeException)
             {
-
             }
 
             try
@@ -339,47 +221,18 @@ namespace Connect4
                         {
                             if (btn[x + 1, yDropped - 1].BackColor == playerColor)
                             {
-                                DialogResult result = MessageBox.Show("4 in a row, " + playerColor.Name + " wins. Restart?", "congratulations", MessageBoxButtons.YesNo);
-                                if (result == DialogResult.Yes)
-                                {
-                                    for (int j = 0; j < btn.GetLength(0); j++)
-                                    {
-                                        for (int k = 0; k < btn.GetLength(1); k++)
-                                        {
-                                            btn[j, k].BackColor = Color.White;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    Application.Exit();
-                                }
+                                winMessage();
                             }
                         }
                         else if (i == 3)
                         {
-                            DialogResult result = MessageBox.Show("4 in a row, " + playerColor.Name + " wins. Restart?", "congratulations", MessageBoxButtons.YesNo);
-                            if (result == DialogResult.Yes)
-                            {
-                                for (int j = 0; j < btn.GetLength(0); j++)
-                                {
-                                    for (int k = 0; k < btn.GetLength(1); k++)
-                                    {
-                                        btn[j, k].BackColor = Color.White;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                Application.Exit();
-                            }
+                            winMessage();
                         }
                     }
                 }
             }
             catch (IndexOutOfRangeException)
             {
-
             }
 
             try
@@ -397,47 +250,18 @@ namespace Connect4
                         {
                             if (btn[x + 1, yDropped + 1].BackColor == playerColor)
                             {
-                                DialogResult result = MessageBox.Show("4 in a row, " + playerColor.Name + " wins. Restart?", "congratulations", MessageBoxButtons.YesNo);
-                                if (result == DialogResult.Yes)
-                                {
-                                    for (int j = 0; j < btn.GetLength(0); j++)
-                                    {
-                                        for (int k = 0; k < btn.GetLength(1); k++)
-                                        {
-                                            btn[j, k].BackColor = Color.White;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    Application.Exit();
-                                }
+                                winMessage();
                             }
                         }
                         else if (i == 3)
                         {
-                            DialogResult result = MessageBox.Show("4 in a row, " + playerColor.Name + " wins. Restart?", "congratulations", MessageBoxButtons.YesNo);
-                            if (result == DialogResult.Yes)
-                            {
-                                for (int j = 0; j < btn.GetLength(0); j++)
-                                {
-                                    for (int k = 0; k < btn.GetLength(1); k++)
-                                    {
-                                        btn[j, k].BackColor = Color.White;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                Application.Exit();
-                            }
+                            winMessage();
                         }
                     }
                 }
             }
             catch (IndexOutOfRangeException)
             {
-
             }
 
             try
@@ -455,49 +279,19 @@ namespace Connect4
                         {
                             if (btn[x - 1, yDropped + 1].BackColor == playerColor)
                             {
-                                DialogResult result = MessageBox.Show("4 in a row, " + playerColor.Name + " wins. Restart?", "congratulations", MessageBoxButtons.YesNo);
-                                if (result == DialogResult.Yes)
-                                {
-                                    for (int j = 0; j < btn.GetLength(0); j++)
-                                    {
-                                        for (int k = 0; k < btn.GetLength(1); k++)
-                                        {
-                                            btn[j, k].BackColor = Color.White;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    Application.Exit();
-                                }
+                                winMessage();
                             }
                         }
                         else if (i == 3)
                         {
-                            DialogResult result = MessageBox.Show("4 in a row, " + playerColor.Name + " wins. Restart?", "congratulations", MessageBoxButtons.YesNo);
-                            if (result == DialogResult.Yes)
-                            {
-                                for (int j = 0; j < btn.GetLength(0); j++)
-                                {
-                                    for (int k = 0; k < btn.GetLength(1); k++)
-                                    {
-                                        btn[j, k].BackColor = Color.White;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                Application.Exit();
-                            }
+                            winMessage();
                         }
                     }
                 }
             }
             catch (IndexOutOfRangeException)
             {
-
             }
-
 
             turnCount++;           
         }
@@ -515,28 +309,65 @@ namespace Connect4
 
         private void reloadBoardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            for (int x = 0; x < btn.GetLength(0); x++)
-            {
-                for (int y = 0; y < btn.GetLength(1); y++)
-                {
-                    btn[x, y].BackColor = Color.White;
-                }
-            }
+            turnCount = 1;
+            resetBoard();
         }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             textBox1.Visible = true;
+            button1.Visible = true;
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
             textBox1.Visible = false;
+            button1.Visible = false;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void addScore()
+        {
+            if (turnCount % 2 == 0)
+            {
+                player2Score++;
+                lblPlayer2Score.Text = player2Score.ToString();
+            }
+            else
+            {
+                player1Score++;
+                lblPlayer1Score.Text = player1Score.ToString();
+            }
+            turnCount = 0;
+        }
+
+        private void resetBoard()
+        {
+            for (int j = 0; j < btn.GetLength(0); j++)
+            {
+                for (int k = 0; k < btn.GetLength(1); k++)
+                {
+                    btn[j, k].BackColor = Color.White;
+                }
+            }
+        }
+
+        private void winMessage()
+        {
+            DialogResult result = MessageBox.Show("4 in a row, " + playerColor.Name + " wins. Restart?", "congratulations", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                resetBoard();
+                addScore();
+            }
+            else
+            {
+                Application.Exit();
+            }
         }
     }
 
