@@ -16,7 +16,9 @@ namespace Connect4
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MenuForm());
+            Application.Run(new connect4Board());
+
+            
         }
     }
 }

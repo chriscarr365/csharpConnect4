@@ -1,0 +1,10 @@
+C:\Users\HughHegarty\Desktop\csharpConnect4-Icon-win-fix-no-internet\Connect4\Connect4\bin\Release\SoundFiles\bensound-relaxing.wav
+C:\Users\HughHegarty\Desktop\csharpConnect4-Icon-win-fix-no-internet\Connect4\Connect4\bin\Release\Connect4.exe.config
+C:\Users\HughHegarty\Desktop\csharpConnect4-Icon-win-fix-no-internet\Connect4\Connect4\bin\Release\Connect4.exe
+C:\Users\HughHegarty\Desktop\csharpConnect4-Icon-win-fix-no-internet\Connect4\Connect4\bin\Release\Connect4.pdb
+C:\Users\HughHegarty\Desktop\csharpConnect4-Icon-win-fix-no-internet\Connect4\Connect4\obj\Release\Connect4.connect4Board.resources
+C:\Users\HughHegarty\Desktop\csharpConnect4-Icon-win-fix-no-internet\Connect4\Connect4\obj\Release\Connect4.Properties.Resources.resources
+C:\Users\HughHegarty\Desktop\csharpConnect4-Icon-win-fix-no-internet\Connect4\Connect4\obj\Release\Connect4.csproj.GenerateResource.cache
+C:\Users\HughHegarty\Desktop\csharpConnect4-Icon-win-fix-no-internet\Connect4\Connect4\obj\Release\Connect4.csproj.CoreCompileInputs.cache
+C:\Users\HughHegarty\Desktop\csharpConnect4-Icon-win-fix-no-internet\Connect4\Connect4\obj\Release\Connect4.exe
+C:\Users\HughHegarty\Desktop\csharpConnect4-Icon-win-fix-no-internet\Connect4\Connect4\obj\Release\Connect4.pdb
